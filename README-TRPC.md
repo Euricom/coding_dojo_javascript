@@ -1,6 +1,6 @@
-# CODING DOJO - Javascript Prisma
+# CODING DOJO - Javascript tRPC
 
-A quick start for Prisma.
+A quick start for tRPC.
 
 ### Install dependencies
 

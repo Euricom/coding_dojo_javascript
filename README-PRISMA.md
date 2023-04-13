@@ -194,5 +194,3 @@ npx prisma migrate dev --name remove-age
 - [Prisma - Quickstart](https://www.prisma.io/docs/getting-started/quickstart)
 - [It's Prisma Time - Tuturial](https://dev.to/this-is-learning/its-prisma-time-introduction-3a3h)
 - [Prisma relations](https://medium.com/yavar/prisma-relations-2ea20c42f616)
-
-## tRPC
