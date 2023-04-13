@@ -5,7 +5,7 @@ A quick start for Prisma.
 ### Install dependencies
 
 ```bash
-pnpm install typescript ts-node @types/node prisma --save-dev
+yarn add typescript ts-node @types/node prisma --dev
 ```
 
 ### Initialize prisma
@@ -191,8 +191,8 @@ npx prisma migrate dev --name remove-age
 
 ### Extra Information
 
+- [Prisma](https://www.prisma.io)
 - [Prisma - Quickstart](https://www.prisma.io/docs/getting-started/quickstart)
-- [It's Prisma Time - Tuturial](https://dev.to/this-is-learning/its-prisma-time-introduction-3a3h)
+- [It's Prisma Time - Tutorial](https://dev.to/this-is-learning/its-prisma-time-introduction-3a3h)
 - [Prisma relations](https://medium.com/yavar/prisma-relations-2ea20c42f616)
 
-## tRPC

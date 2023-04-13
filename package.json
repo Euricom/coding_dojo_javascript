@@ -6,9 +6,13 @@
     "db:up": "docker-compose up -d",
     "db:down": "docker-compose down"
   },
+  "private": true,
   "keywords": [],
   "author": "Peter Cosemans",
   "license": "MIT",
   "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {},
+  "workspaces": [
+    "packages/*"
+  ]
 }
