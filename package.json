@@ -1,0 +1,14 @@
+{
+  "name": "coding_dojo_javascript",
+  "version": "1.0.0",
+  "description": "This is a repository for the coding dojo javascript.",
+  "scripts": {
+    "db:up": "docker-compose up -d",
+    "db:down": "docker-compose down"
+  },
+  "keywords": [],
+  "author": "Peter Cosemans",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
