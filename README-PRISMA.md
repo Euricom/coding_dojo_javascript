@@ -39,16 +39,18 @@ volumes:
 
 ### Startup/shutdown DB
 
+First you have to set your database URL before starting up the database.
+
+```bash
+export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/demo"
+```
+
 ```bash
 # startup the database
 docker-compose up -d
 
 # shutdown the database
 docker-compose down
-```
-
-```bash
-export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/demo"
 ```
 
 You can use [pgAdmin](https://www.pgadmin.org/) to manage the DB. Not really needed here, but it's a nice tool to have.
