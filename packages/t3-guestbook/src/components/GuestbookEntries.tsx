@@ -1,12 +1,25 @@
 import { api } from "~/utils/api";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { type User } from "@prisma/client";
 
-export const GuestbookEntries = ({ user }: { user: User }) => {
+import { useSession } from "next-auth/react";
+
+export const GuestbookEntries = () => {
+  const { data: session } = useSession();
   const { data: guestbookEntries } = api.guestbook.getAll.useQuery();
 
-  const likeMessage = api.guestbook.likeMessage.useMutation().mutateAsync;
-  const unlikeMessage = api.guestbook.unlikeMessage.useMutation().mutateAsync;
+  const utils = api.useContext();
+
+  const likeMessage = api.guestbook.likeMessage.useMutation({
+    onSettled: async () => {
+      await utils.guestbook.getAll.invalidate();
+    },
+  });
+
+  const unlikeMessage = api.guestbook.unlikeMessage.useMutation({
+    onSettled: async () => {
+      await utils.guestbook.getAll.invalidate();
+    },
+  });
 
   return (
     <div className="flex flex-col gap-4">
@@ -14,7 +27,8 @@ export const GuestbookEntries = ({ user }: { user: User }) => {
         ?.sort((a, b) => Number(b.createdAt) - Number(a.createdAt))
         .map((entry, index) => {
           const hasUserLikedMessage =
-            entry.likes?.filter((like) => like.userId === user.id).length > 0;
+            entry.likes?.filter((like) => like.userId === session?.user.id)
+              .length > 0;
 
           return (
             <div key={index} className="w-full rounded-md bg-neutral-700 p-2">
@@ -24,7 +38,7 @@ export const GuestbookEntries = ({ user }: { user: User }) => {
                   {hasUserLikedMessage ? (
                     <FaHeart
                       onClick={() =>
-                        void unlikeMessage({
+                        void unlikeMessage.mutate({
                           guestbookId: entry.id,
                         })
                       }
@@ -32,7 +46,7 @@ export const GuestbookEntries = ({ user }: { user: User }) => {
                   ) : (
                     <FaRegHeart
                       onClick={() =>
-                        void likeMessage({
+                        void likeMessage.mutate({
                           guestbookId: entry.id,
                         })
                       }
