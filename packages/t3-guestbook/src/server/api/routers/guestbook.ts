@@ -32,4 +32,46 @@ export const guestbookRouter = createTRPCRouter({
         console.log(error);
       }
     }),
+  likeMessage: protectedProcedure
+    .input(
+      z.object({
+        guestbookId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      return await ctx.prisma.like.create({
+        data: {
+          guestbook: {
+            connect: {
+              id: input.guestbookId,
+            },
+          },
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+        },
+      });
+    }),
+  unlikeMessage: protectedProcedure
+    .input(
+      z.object({
+        guestbookId: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      return await ctx.prisma.like.delete({
+        where: {
+          guestbookId_userId: {
+            guestbookId: input.guestbookId,
+            userId,
+          },
+        },
+      });
+    }),
 });

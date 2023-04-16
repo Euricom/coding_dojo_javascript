@@ -20,10 +20,13 @@ model Guestbook {
 }
 
 model Like {
-  id String @id @default(cuid())
-
-  Guestbook   Guestbook? @relation(fields: [guestbookId], references: [id])
+  id          String     @id @default(cuid())
+  guestbook   Guestbook? @relation(fields: [guestbookId], references: [id])
   guestbookId String?
+  user        User?       @relation(fields: [userId], references: [id])
+  userId      String?
+
+  @@unique([guestbookId, userId])
 }
 
 // Necessary for Next auth
@@ -61,6 +64,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  likes         Like[]
 }
 
 model VerificationToken {
