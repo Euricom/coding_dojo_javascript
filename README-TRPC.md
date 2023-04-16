@@ -228,4 +228,3 @@ createUser({ name: 'John' });
 - [trpc-panel](https://github.com/iway1/trpc-panel)
 - [template-next-t3-mongodb](https://github.com/cosemansp/template-next-t3-mongodb)
 - [trpc-openapi](https://www.npmjs.com/package/trpc-openapi)
-- [tRPC with Angular](https://medium.com/anymind-group/full-stack-typesscript-with-trpc-ft-angular-93ffc52685a5)
