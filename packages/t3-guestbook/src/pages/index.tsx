@@ -1,5 +1,3 @@
-import { type NextPage } from "next";
-
 import { signIn, signOut, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
@@ -12,9 +10,9 @@ const GuestbookEntries = () => {
     <div className="flex flex-col gap-4">
       {guestbookEntries?.map((entry, index) => {
         return (
-          <div key={index}>
-            <p>{entry.message}</p>
-            <span>- {entry.name}</span>
+          <div key={index} className="w-full rounded-md bg-neutral-700 p-2">
+            <p className="mb-1">{entry.message}</p>
+            <span className="text-sm font-light italic">- {entry.name}</span>
           </div>
         );
       })}
@@ -22,30 +20,56 @@ const GuestbookEntries = () => {
   );
 };
 
-const Home: NextPage = () => {
-  const { data: session } = useSession();
+const Home = () => {
+  const { data: session, status } = useSession();
 
-  const handleClick = () => {
-    if (!session) {
-      return void signIn();
-    }
-    return void signOut();
-  };
+  if (status === "loading") {
+    return <main className="flex flex-col items-center pt-4">Loading...</main>;
+  }
 
   return (
-    <main className="flex flex-col items-center p-4">
-      <div className="mb-6 flex items-center">
-        <h1 className="mr-8 text-3xl font-bold">Guestbook</h1>
-        <button className="rounded-md bg-gray-800 p-2" onClick={handleClick}>
-          {session ? "Log out" : "Log in"}
-        </button>
+    <main className="flex flex-col items-center">
+      <h1 className="pt-4 text-3xl font-bold">Guestbook</h1>
+      <div className="w-[20vw] pt-10">
+        <div>
+          {session ? (
+            <>
+              <button
+                type="button"
+                className="mx-auto block rounded-md bg-neutral-800 px-6 py-3 text-center hover:bg-neutral-700"
+                onClick={() => {
+                  signOut().catch(console.log);
+                }}
+              >
+                Logout
+              </button>
+              <p className="mt-4 text-center font-bold">
+                Hi {session.user?.name}
+              </p>
+            </>
+          ) : (
+            <button
+              type="button"
+              className="mx-auto block rounded-md bg-neutral-800 px-6 py-3 text-center hover:bg-neutral-700"
+              onClick={() => {
+                signIn("discord").catch(console.log);
+              }}
+            >
+              Login with Google
+            </button>
+          )}
+        </div>
+        <div className="pt-10">
+          {session ? (
+            <GuestbookEntries />
+          ) : (
+            <p className="text-md font-light">
+              You need to be logged in to view your guestbook!
+            </p>
+          )}
+        </div>
       </div>
-      <div className="mb-8">
-        {session && <p className="font-bold">Hi {session.user.name}</p>}
-      </div>
-      <GuestbookEntries />
     </main>
   );
 };
-
 export default Home;
