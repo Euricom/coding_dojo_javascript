@@ -29,7 +29,7 @@ export const Form = () => {
 
   return (
     <form
-      className="flex gap-2"
+      className="flex justify-between gap-4"
       onSubmit={(event) => {
         event.preventDefault();
         postMessage.mutate({
@@ -41,7 +41,7 @@ export const Form = () => {
     >
       <input
         type="text"
-        className="rounded-md border-2 border-zinc-800 bg-neutral-900 px-4 py-2 focus:outline-none"
+        className="w-2/3 rounded-md border-2 border-zinc-800 bg-neutral-900 px-4 py-2 focus:outline-none"
         placeholder="Your message..."
         minLength={2}
         maxLength={100}
@@ -50,7 +50,7 @@ export const Form = () => {
       />
       <button
         type="submit"
-        className="rounded-md border-2 border-zinc-800 p-2 focus:outline-none"
+        className="w-1/3 rounded-md border-2 border-zinc-800 p-2 focus:outline-none"
       >
         Submit
       </button>
