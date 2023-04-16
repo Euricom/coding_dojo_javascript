@@ -47,7 +47,7 @@ const Home = () => {
               <div className="mb-4">
                 <Form />
               </div>
-              <GuestbookEntries />
+              <GuestbookEntries user={session.user} />
             </>
           ) : (
             <p className="text-md font-light">
