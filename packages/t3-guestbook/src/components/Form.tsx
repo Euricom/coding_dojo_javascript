@@ -4,11 +4,9 @@ import { api } from "~/utils/api";
 
 export const Form = () => {
   const [message, setMessage] = useState("");
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const postMessage = api.guestbook.postMessage.useMutation();
-
-  if (status !== "authenticated") return null;
 
   return (
     <form
@@ -16,7 +14,7 @@ export const Form = () => {
       onSubmit={(event) => {
         event.preventDefault();
         postMessage.mutate({
-          name: session.user?.name as string,
+          name: session?.user?.name as string,
           message,
         });
         setMessage("");

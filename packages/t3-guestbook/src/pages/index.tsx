@@ -1,4 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
+import { Form } from "~/components/Form";
 import { GuestbookEntries } from "~/components/GuestbookEntries";
 
 const Home = () => {
@@ -42,7 +43,12 @@ const Home = () => {
         </div>
         <div className="pt-10">
           {session ? (
-            <GuestbookEntries />
+            <>
+              <div className="mb-4">
+                <Form />
+              </div>
+              <GuestbookEntries />
+            </>
           ) : (
             <p className="text-md font-light">
               You need to be logged in to view your guestbook!
