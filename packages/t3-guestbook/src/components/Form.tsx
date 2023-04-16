@@ -6,7 +6,26 @@ export const Form = () => {
   const [message, setMessage] = useState("");
   const { data: session } = useSession();
 
-  const postMessage = api.guestbook.postMessage.useMutation();
+  // useContext is a hook that gives access to helpers that let you manage the cached data of the queries
+  // read more: https://trpc.io/docs/reactjs/usecontext#:~:text=useContext%20is%20a%20hook%20that,%2Dquery%20's%20queryClient%20methods.
+  const utils = api.useContext();
+
+  const postMessage = api.guestbook.postMessage.useMutation({
+    onMutate: async (newEntry) => {
+      await utils.guestbook.getAll.cancel();
+      utils.guestbook.getAll.setData(undefined, (prevEntries) => {
+        if (prevEntries) {
+          return [newEntry, ...prevEntries];
+        } else {
+          return [newEntry];
+        }
+      });
+    },
+    // refetch after each error or success
+    onSettled: async () => {
+      await utils.guestbook.getAll.invalidate();
+    },
+  });
 
   return (
     <form
