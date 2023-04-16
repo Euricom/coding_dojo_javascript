@@ -1,4 +1,5 @@
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { z } from "zod";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const guestbookRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
@@ -8,4 +9,23 @@ export const guestbookRouter = createTRPCRouter({
       console.log("error", error);
     }
   }),
+  postMessage: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        message: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        await ctx.prisma.guestbook.create({
+          data: {
+            name: input.name,
+            message: input.message,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
 });
