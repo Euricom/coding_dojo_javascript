@@ -1,5 +1,5 @@
 {
-  "name": "client-react",
+  "name": "client-react-base",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
