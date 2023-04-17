@@ -13,6 +13,7 @@
   "devDependencies": {},
   "dependencies": {},
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "starters/*"
   ]
 }

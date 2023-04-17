@@ -1,0 +1,61 @@
+{
+  "extends": ["airbnb", "airbnb-typescript", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "prettier"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "no-plusplus": "off",
+    "no-restricted-syntax": [
+      // Removed ForOfStatement
+      "error",
+      {
+        "selector": "ForInStatement",
+        "message": "for..in loops iterate over the entire prototype chain, which is virtually never what you want. Use Object.{keys,values,entries}, and iterate over the resulting array."
+      },
+      {
+        "selector": "LabeledStatement",
+        "message": "Labels are a form of GOTO; using them makes code confusing and hard to maintain and understand."
+      },
+      {
+        "selector": "WithStatement",
+        "message": "`with` is disallowed in strict mode because it makes code impossible to predict and optimize."
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "test/**", // tape, common npm pattern
+          "tests/**", // also common npm pattern
+          "spec/**", // mocha, rspec-like pattern
+          "**/__tests__/**", // jest pattern
+          "**/__mocks__/**", // jest pattern
+          "**/*{.,_}{test,spec}.{js,jsx,ts,tsx}", // tests where the extension or filename suffix denotes that it is a test
+          "**/jest.setup.ts", // jest setup
+          "**/vite.config.ts" // vite config
+        ],
+        "optionalDependencies": false
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
+    "react/function-component-definition": "off",
+    "jest/expect-expect": "off",
+    "jsx-a11y/label-has-associated-control": [
+      // airbnb require both nesting and htmlFor
+      "error",
+      {
+        "labelComponents": [],
+        "labelAttributes": [],
+        "controlComponents": [],
+        "assert": "either",
+        "depth": 25
+      }
+    ]
+  }
+}
