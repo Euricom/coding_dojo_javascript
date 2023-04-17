@@ -45,14 +45,7 @@ npm install
 
 ### Setup the database
 
-Export the `DATABASE_URL` first:
-
-```bash
-export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/demo
-
-# check if env variable is set correctly
-echo $DATABASE_URL
-```
+Copy the DATABASE_URL from `env.example` into your `.env`.
 
 ### Startup/shutdown DB
 
