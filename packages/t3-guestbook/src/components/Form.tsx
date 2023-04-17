@@ -8,22 +8,13 @@ export const Form = () => {
 
   // useContext is a hook that gives access to helpers that let you manage the cached data of the queries
   // read more: https://trpc.io/docs/reactjs/usecontext#:~:text=useContext%20is%20a%20hook%20that,%2Dquery%20's%20queryClient%20methods.
-  const utils = api.useContext();
+  const trpcContext = api.useContext();
 
-  const postMessage = api.guestbook.postMessage.useMutation({
-    onMutate: async (newEntry) => {
-      await utils.guestbook.getAll.cancel();
-      utils.guestbook.getAll.setData(undefined, (prevEntries) => {
-        if (prevEntries) {
-          return [newEntry, ...prevEntries];
-        } else {
-          return [newEntry];
-        }
-      });
-    },
-    // refetch after each error or success
-    onSettled: async () => {
-      await utils.guestbook.getAll.invalidate();
+  // prepare the mutation
+  const { mutate: createEntry } = api.guestbook.createEntry.useMutation({
+    onSuccess: async () => {
+      // invalidate all guestbooks, so a refresh is triggered
+      await trpcContext.guestbook.getAll.invalidate();
     },
   });
 
@@ -32,11 +23,8 @@ export const Form = () => {
       className="flex justify-between gap-4"
       onSubmit={(event) => {
         event.preventDefault();
-        postMessage.mutate({
-          name: session?.user?.name as string,
-          message,
-        });
-        setMessage("");
+        createEntry({ name: session?.user.name!, message });
+        setMessage(""); // reset input box
       }}
     >
       <input

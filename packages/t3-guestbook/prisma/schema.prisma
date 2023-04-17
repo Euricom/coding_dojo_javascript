@@ -23,7 +23,7 @@ model Like {
   id          String     @id @default(cuid())
   guestbook   Guestbook? @relation(fields: [guestbookId], references: [id])
   guestbookId String?
-  user        User?       @relation(fields: [userId], references: [id])
+  user        User?      @relation(fields: [userId], references: [id])
   userId      String?
 
   @@unique([guestbookId, userId])
@@ -65,12 +65,4 @@ model User {
   accounts      Account[]
   sessions      Session[]
   likes         Like[]
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
 }

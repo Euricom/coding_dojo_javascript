@@ -3,17 +3,28 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const guestbookRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    try {
-      return await ctx.prisma.guestbook.findMany({
-        include: {
-          likes: true,
+    return ctx.prisma.guestbook.findMany({
+      include: {
+        likes: true,
+      },
+    });
+  }),
+
+  remove: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.guestbook.delete({
+        where: {
+          id: input.id,
         },
       });
-    } catch (error) {
-      console.log("error", error);
-    }
-  }),
-  postMessage: protectedProcedure
+    }),
+
+  createEntry: protectedProcedure
     .input(
       z.object({
         name: z.string(),
@@ -21,17 +32,14 @@ export const guestbookRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      try {
-        await ctx.prisma.guestbook.create({
-          data: {
-            name: input.name,
-            message: input.message,
-          },
-        });
-      } catch (error) {
-        console.log(error);
-      }
+      return ctx.prisma.guestbook.create({
+        data: {
+          name: input.name,
+          message: input.message,
+        },
+      });
     }),
+
   likeMessage: protectedProcedure
     .input(
       z.object({
@@ -41,21 +49,14 @@ export const guestbookRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      return await ctx.prisma.like.create({
+      return ctx.prisma.like.create({
         data: {
-          guestbook: {
-            connect: {
-              id: input.guestbookId,
-            },
-          },
-          user: {
-            connect: {
-              id: userId,
-            },
-          },
+          guestbookId: input.guestbookId,
+          userId: userId,
         },
       });
     }),
+
   unlikeMessage: protectedProcedure
     .input(
       z.object({
