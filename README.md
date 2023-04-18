@@ -4,8 +4,8 @@ This is a repo for a coding dojo with T3-Stack
 
 ## Content
 
-- [Intro to Prisma](./docs/PRISMA.md)] 
-- [Intro to tRPC](./docs/tRPC.md)
+- [Intro to Prisma](./docs/PRISMA.md)
+- [Intro to tRPC](./docs/TRPC.md)
 - [Intro to T3 Stack](./docs/T3-STACK.md)
 
 - [Challenge](./docs/GUESTBOOK.md)
