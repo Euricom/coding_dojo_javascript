@@ -8,12 +8,12 @@ We are going to build a simple guest book application, with DB access via Prisma
 - Create a new T3 App 
 - Create a guestbook database to hold the messages
   - Use postgres as DB
-- Create tRPC router for adding and removing messages
-- Add an TRPC panel for easy testing
+- Create a tRPC router for adding and removing messages
+- Add a TRPC panel for easy testing
 - Create a simple page with
   - Simple form (message + submit button)
-  - List of message 
-  - Remove an message
+  - List of messages
+  - Remove a message
 - Authentication with Google
   - Use the DB integration of NextAuth to store the user
 - Add like/unlike functionality for logged in users 
