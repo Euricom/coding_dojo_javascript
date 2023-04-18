@@ -12,6 +12,11 @@ export const GuestbookEntries = () => {
   const { mutate: like } = api.guestbook.likeMessage.useMutation({
     // optimistic update
     onMutate: async (newEntry) => {
+      // Cancel any outgoing refetches
+      // (so they don't overwrite our optimistic update)
+      trpcContext.guestbook.getAll.cancel();
+
+      // Optimistically update to the new values
       trpcContext.guestbook.getAll.setData(undefined, (prevEntries) => {
         const entry = prevEntries?.find(
           (entry) => entry.id === newEntry.guestbookId
@@ -26,22 +31,22 @@ export const GuestbookEntries = () => {
         return prevEntries;
       });
     },
-    // in case of an error, we rollback our optimistic update
-    onError: async () => {
-      await trpcContext.guestbook.getAll.invalidate();
+    // Always refetch after error or success, so we have an up to date list
+    onSettled: async () => {
+      void trpcContext.guestbook.getAll.invalidate();
     },
   });
 
   const { mutate: unlike } = api.guestbook.unlikeMessage.useMutation({
     // pessimistic update, just refresh the data
     onSuccess: async () => {
-      await trpcContext.guestbook.getAll.invalidate();
+      void trpcContext.guestbook.getAll.invalidate();
     },
   });
 
   const { mutate: remove } = api.guestbook.remove.useMutation({
     onSuccess: async () => {
-      await trpcContext.guestbook.getAll.invalidate();
+      void trpcContext.guestbook.getAll.invalidate();
     },
   });
 

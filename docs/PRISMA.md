@@ -39,12 +39,6 @@ volumes:
 
 ### Startup/shutdown DB
 
-First you have to set your database URL before starting up the database.
-
-```bash
-export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/demo"
-```
-
 ```bash
 # startup the database
 docker-compose up -d
@@ -66,6 +60,11 @@ model User {
 ```
 
 and push to DB
+
+```bash
+# specify the DB URL
+export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/demo"
+```
 
 ```bash
 # push changes to DB & generate client

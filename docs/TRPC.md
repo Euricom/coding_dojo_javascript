@@ -115,6 +115,10 @@ Add the trpc & react-query client
 
 ```tsx
 // App.tsx
+import trpc from './trpc';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { httpBatchLink } from '@trpc/client';
+
 const queryClient = new QueryClient();
 const trpcClient = trpc.createClient({
   links: [

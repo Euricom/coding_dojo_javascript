@@ -2,6 +2,14 @@
 
 A quick start for T3-Stack with NextJS, AuthJS, Prisma & tRPC
 
+### Stack
+
+- [Next.js](https://nextjs.org)
+- [NextAuth.js](https://next-auth.js.org)
+- [Prisma](https://prisma.io)
+- [Tailwind CSS](https://tailwindcss.com)
+- [tRPC](https://trpc.io)
+
 ### Create & Startup App
 
 ```bash
@@ -84,6 +92,7 @@ const Home: NextPage = () => {
 Replace Discord 
 
 ```js
+// original
 // ./src/server/auth.ts
 import DiscordProvider from "next-auth/providers/discord";
 export const authOptions: NextAuthOptions = {
@@ -105,7 +114,7 @@ export const authOptions: NextAuthOptions = {
 with Google
 
 ```js
-// ./src/server/auth.ts
+// to replace with (./src/server/auth.ts)
 import GoogleProvider from "next-auth/providers/google";
 export const authOptions: NextAuthOptions = {
   // remove the DB integration
@@ -127,7 +136,7 @@ export const authOptions: NextAuthOptions = {
 Set GOOGLE_CLIENT_ID & GOOGLE_CLIENT_SECRET
 
 ```ts
-// old (./src/env.mjs)
+// original (./src/env.mjs)
 DISCORD_CLIENT_ID: z.string(),
 DISCORD_CLIENT_SECRET: z.string(),
 
@@ -139,7 +148,7 @@ const processEnv = {
 };
 ```
 
-With
+With Google
 
 ```ts
 // to replace with (./src/env.mjs)
@@ -163,23 +172,24 @@ GOOGLE_CLIENT_ID="866059570312-gqojt5mbc8f7oj49h2ba7uhki52l82h7.apps.googleuserc
 GOOGLE_CLIENT_SECRET="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"
 ```
 
-Finally you can remove the prisma models for the auth
-We don't need it here
+Finally place the NextAuth schema's in comment for now.
+Currently we don't need it
+
+schema.prisma
 
 ```
-# schema.prisma
-# REMOVE Necessary for Next auth
-model Account {
-}
-
-model Session {
-}
-
-model User {
-}
-
-model VerificationToken {
-}
+// Necessary for Next auth
+// model Account {
+// }
+//
+// model Session {
+// }
+//
+// model User {
+//}
+//
+// model VerificationToken {
+// }
 ```
 
 ### Login/Logout

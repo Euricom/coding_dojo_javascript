@@ -32,6 +32,10 @@ export const guestbookRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      // dummy wait to simulate slow network
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // update the database
       return ctx.prisma.guestbook.create({
         data: {
           name: input.name,

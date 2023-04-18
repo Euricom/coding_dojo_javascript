@@ -748,14 +748,6 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.29.1.tgz#62a4bc120b85e6bb3c6c0aca96346e643e232248"
   integrity sha512-vkPewLEG8ua0efo3SsVT0BcBtkq5RZX8oPhDAyKL+k/rdOYSQTEocfGEXSaBwIwsXeOGBUpfKqI+UmHvNqdWXg==
 
-"@tanstack/react-query@^4.28.0", "@tanstack/react-query@^4.29.1":
-  version "4.29.3"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.29.3.tgz#037205560784ed4a5e3fd605a2143e325b6189fa"
-  integrity sha512-FPQrMu7PbCgBcVzoRJm7WmQnAFv+LUgZM9KBZ7Vk/+yERH2BDLvQRuAgczQd5Tb1s3HbOktECRDaOkUxdyBAjw==
-  dependencies:
-    "@tanstack/query-core" "4.29.1"
-    use-sync-external-store "^1.2.0"
-
 "@tanstack/react-query@^4.29.2":
   version "4.29.2"
   resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.29.2.tgz#0b6f5b328afc6e284cb9f6cc433016d696e77ed5"
@@ -764,24 +756,24 @@
     "@tanstack/query-core" "4.29.1"
     use-sync-external-store "^1.2.0"
 
-"@trpc/client@^10.18.0", "@trpc/client@^10.20.0":
+"@trpc/client@^10.20.0":
   version "10.20.0"
   resolved "https://registry.yarnpkg.com/@trpc/client/-/client-10.20.0.tgz#92519c772eb3804acd0ddd313b65e5ad8f5d1619"
   integrity sha512-DER42PjIURSl1fwVnBzMWMgo4oxbyA72nIVpOliIpNArDYkZkr7kMfXmap2J7gwaKJNMC/V5xhYc06zG9r/8pQ==
 
-"@trpc/next@^10.18.0":
+"@trpc/next@^10.20.0":
   version "10.20.0"
   resolved "https://registry.yarnpkg.com/@trpc/next/-/next-10.20.0.tgz#3452f4ec9f4a13127cc88af8206ecd98c284ce65"
   integrity sha512-qtLZeaAcLU8N8lvwB9h7i/HlIKbdP5Px6oZf8HQ29a+vBaY8NXTG7Q1BkvHCc/E304xH2KWsgQ6s1sNwSZ5+UQ==
   dependencies:
     react-ssr-prepass "^1.5.0"
 
-"@trpc/react-query@^10.18.0", "@trpc/react-query@^10.20.0":
+"@trpc/react-query@^10.20.0":
   version "10.20.0"
   resolved "https://registry.yarnpkg.com/@trpc/react-query/-/react-query-10.20.0.tgz#0270b0bba0ec7fadb0a74e2f870a4666a0c083fc"
   integrity sha512-8Qkmhe0fwKJIdONHu6wHd4onNbt10MO422mqCindV8AK2ommRDFERaz6sqdPevHVu7ggLEDMJ+aWRqR2VX+yYw==
 
-"@trpc/server@^10.18.0", "@trpc/server@^10.20.0":
+"@trpc/server@^10.20.0":
   version "10.20.0"
   resolved "https://registry.yarnpkg.com/@trpc/server/-/server-10.20.0.tgz#40e5083ddef474288b61f9e6678c22b2b9b2581c"
   integrity sha512-pbrdgw2mO8lWygyZjGLbOq/EoWFWEJvLaxp8JmGsivMIh/IZR5mksPJdywAGQ4TBrbcqssKhuoJ/8OE9mhaveg==
