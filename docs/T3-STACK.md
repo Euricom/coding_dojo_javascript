@@ -1,4 +1,4 @@
-# CODING DOJO - Javascript T3-Stack
+# AfternoonJS - Coding DOJO - T3-Stack
 
 A quick start for T3-Stack with NextJS, AuthJS, Prisma & tRPC
 

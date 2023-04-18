@@ -1,4 +1,4 @@
-# CODING DOJO - Javascript tRPC
+# AfternoonJS - Coding DOJO - tRPC
 
 A quick start for tRPC.
 

@@ -1,4 +1,4 @@
-# CODING DOJO - Guestbook exercise
+# AfternoonJS - Coding DOJO - Guestbook exercise
 
 This is the major exercise to build with the T3 Stack.
 We are going to build a simple guest book application, with DB access via Prisma, and API with tRPC and NextAuth for the authentication.

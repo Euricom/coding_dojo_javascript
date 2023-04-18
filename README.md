@@ -1,4 +1,4 @@
-# CODING DOJO 
+# Afternoon JS - Coding DOJO
 
 This is a repo for a coding dojo with T3-Stack
 
@@ -13,9 +13,10 @@ This is a repo for a coding dojo with T3-Stack
 ## Agenda
 
 - 13:00 - 14:30 - Intro to Prisma, tRPC & T3 Stack (by Peter Cosemans)
-- 14:45 - 17:30 - Coding Challenge (part 1)
-- 17:30 - 19:00 - Coding Challenge (part 2)
-- 19:00 - 20:00 - Review and Q&A
+- 14:45 - 17:00 - Coding Challenge (part 1)
+- 17:00 - 18:00 - Pizza Break
+- 18:00 - 19:00 - Coding Challenge (part 2)
+- 19:30 - 20:00 - Review and Q&A
 
 ## Setup
 
