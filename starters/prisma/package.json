@@ -1,0 +1,12 @@
+{
+  "name": "prisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Peter Cosemans",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {}
+}
