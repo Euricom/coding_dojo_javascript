@@ -2,7 +2,7 @@
 
 A quick start for T3-Stack with NextJS, AuthJS, Prisma & tRPC
 
-### Stack
+## Stack
 
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
@@ -10,17 +10,17 @@ A quick start for T3-Stack with NextJS, AuthJS, Prisma & tRPC
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
 
-### Create & Startup App
+## Create & Startup App
 
 ```bash
 # create app
 npm create t3-app@latest
 
 # install deps
-npm install
+yarn  # or npm install
 
 # startup
-npm run dev
+yarn dev
 ```
 
 ### NextJS
@@ -87,7 +87,11 @@ const Home: NextPage = () => {
 }
 ```
 
-### Login with google
+## Setup your authentication
+
+Authentication is NextJS: [https://authjs.dev/](https://authjs.dev/)
+
+### Setup for google auth
 
 Replace Discord 
 
@@ -222,6 +226,36 @@ return (
 )
 ```
 
+### Auth with the DB provider
+
+* Startup you DB (if not already running)
+* Export DATABASE_URL
+
+```bash
+export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/demo"
+```
+
+Add adapter (again)
+
+```js
+export const authOptions: NextAuthOptions = {
+  callbacks: {
+    session: ({ session, user }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: user.id,
+      },
+    }),
+  },
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    }),
+  ],
+```
 
 ### Extra Information
 
