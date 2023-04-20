@@ -11,15 +11,20 @@
     "cleanup": "rimraf coverage dist"
   },
   "dependencies": {
+    "@euricom/my-trpc-server": "^1.0.0",
+    "@tanstack/react-query": "^4.29.3",
+    "@trpc/client": "^10.20.0",
+    "@trpc/react-query": "^10.20.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "superjson": "^1.12.2"
   },
   "devDependencies": {
-    "@types/node": "^18.15.11",
-    "@types/react": "^18.0.15",
+    "@types/node": "^18.15.12",
+    "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.30.7",
-    "@typescript-eslint/parser": "^5.30.7",
+    "@typescript-eslint/eslint-plugin": "^5.59.0",
+    "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.8",
     "concurrently": "^8.0.1",
@@ -31,13 +36,13 @@
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "postcss": "^8.4.14",
+    "postcss": "^8.4.23",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^3.0.0",
     "rimraf": "^5.0.0",
     "tailwindcss": "^3.1.6",
     "typescript": "^5.0.4",
-    "vite": "^4.2.1",
+    "vite": "^4.3.0",
     "vite-plugin-environment": "^1.1.2",
     "vite-plugin-svgr": "^2.2.1"
   },
