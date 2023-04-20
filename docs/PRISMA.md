@@ -1,4 +1,4 @@
-# AfternoonJS - Coding DOJO - Prisma
+# AfternoonJS - Prisma
 
 A quick start for Prisma.
 

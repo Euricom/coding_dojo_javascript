@@ -1,4 +1,4 @@
-# AfternoonJS - Coding DOJO - T3-Stack
+# AfternoonJS - Next / AuthJS
 
 A quick start for T3-Stack with NextJS, AuthJS, Prisma & tRPC
 
@@ -89,7 +89,7 @@ const Home: NextPage = () => {
 
 ## Setup your authentication
 
-Authentication is NextJS: [https://authjs.dev/](https://authjs.dev/)
+Authentication is performed by [Auth.js](https://authjs.dev/)
 
 ### Setup for google auth
 
@@ -176,26 +176,6 @@ GOOGLE_CLIENT_ID="866059570312-gqojt5mbc8f7oj49h2ba7uhki52l82h7.apps.googleuserc
 GOOGLE_CLIENT_SECRET="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"
 ```
 
-Finally place the NextAuth schema's in comment for now.
-Currently we don't need it
-
-schema.prisma
-
-```
-// Necessary for Next auth
-// model Account {
-// }
-//
-// model Session {
-// }
-//
-// model User {
-//}
-//
-// model VerificationToken {
-// }
-```
-
 ### Login/Logout
 
 Login/logout
@@ -235,11 +215,13 @@ return (
 export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/demo"
 ```
 
-Add adapter (again)
+* See prisma.schema for DB schema
+
+* Add adapter & session handling (again)
 
 ```js
 export const authOptions: NextAuthOptions = {
-  callbacks: {
+  callbacks: {                      // <--------
     session: ({ session, user }) => ({
       ...session,
       user: {
@@ -248,7 +230,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma),   // <--------
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
