@@ -5,7 +5,7 @@ A quick start for Prisma.
 ### Install dependencies
 
 ```bash
-pnpm install typescript ts-node @types/node prisma --save-dev
+yarn add typescript ts-node @types/node prisma --dev
 ```
 
 ### Initialize prisma
@@ -18,8 +18,9 @@ npx prisma init --datasource-provider postgresql
 
 ### Setup the database
 
+**Create a docker-compose.yml file**
+
 ```bash
-# docker-compose.yml
 version: "3.8"
 services:
   db:
@@ -37,7 +38,7 @@ volumes:
     driver: local
 ```
 
-### Startup/shutdown DB
+**Startup/shutdown**
 
 ```bash
 # startup the database
@@ -47,24 +48,42 @@ docker-compose up -d
 docker-compose down
 ```
 
+**pgAdmin**
+
 You can use [pgAdmin](https://www.pgadmin.org/) to manage the DB. Not really needed here, but it's a nice tool to have.
 
-### The first model
+**Supabase**
 
-```
+Alternative you can setup the database on [supabase](https://supabase.com/)
+
+* Create a account (sing-up with github account).
+* Create a new project (remember your DB password)
+
+> Note: You can use the free plan for this project.
+
+### Your first schema model
+
+**Edit the schema.prisma file**
+
+```prisma
 model User {
-  id    Int     @id @default(uuid())
-  email String  @unique
+  id    String  @id @default(uuid())
+  email String  
   name  String?
 }
 ```
 
-and push to DB
+**Configure the DB URL**
 
 ```bash
-# specify the DB URL
+# specify the DB URL (local)
 export DATABASE_URL="postgresql://postgres:postgres@localhost:5432/demo"
+
+# Or supabase
+export DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.hjliykvyuvuffylsumsd.supabase.co:5432/postgres"
 ```
+
+**and push to DB**
 
 ```bash
 # push changes to DB & generate client
@@ -138,9 +157,54 @@ model User {
 }
 ```
 
+### Where is my ERD
+
+**Install ERD generator**
+
+```bash
+yarn add -D prisma-erd-generator @mermaid-js/mermaid-cli @prisma/generator-helper
+```
+
+**Configure it**
+
+Add to the schema.prisma file
+
+```
+generator erd {
+    provider = "prisma-erd-generator"
+}
+```
+
+### Where are my SQL Scripts, I want to have migrations
+
+**Create your first migration**
+
+```bash
+# generate a migration
+npx prisma migrate dev
+```
+
+**add a new field to the schema**
+
+```prisma
+model User {
+  id    String  @id @default(uuid())
+  email String  @unique
+  name  String?
+  age   Int?
+}
+```
+
+**add a new migration**
+
+```bash
+# generate a migration with name
+npx prisma migrate dev --name add-age
+```
+
 ### Relations
 
-Update the schema
+**Update the schema**
 
 ```
 model User {
@@ -158,7 +222,7 @@ model Post {
 }
 ```
 
-Query the data
+**Query the data**
 
 ```ts
 const user = await prisma.user.findUnique({
@@ -171,27 +235,48 @@ const user = await prisma.user.findUnique({
 });
 ```
 
-### Where is my ERD
+**Create with relations**
 
-```bash
-yarn add -D prisma-erd-generator @mermaid-js/mermaid-cli @prisma/generator-helper
+```ts
+await prisma.post.create({
+  data: {
+    userId: user?.id,
+    title: "My first post",
+    published: true,
+  },
+});
+
+// or create with relations query
+await prisma.post.create({
+  data: {
+    User: {
+      connect: {
+        email: "john@euri.com",
+      },
+    },
+    title: "My first post",
+    published: true,
+  },
+});
+
+// create user with post
+await prisma.user.create({
+  data: {
+    email: "me@euri.com",
+    name: "Me",
+    posts: {
+      create: {
+        title: "My first post",
+        published: true,
+      },
+    },
+  },
+});
 ```
 
-```
-generator erd {
-    provider = "prisma-erd-generator"
-}
-```
-
-### I want a migration script
-
-```bash
-npx prisma migrate dev
-npx prisma migrate dev --name remove-age
-```
+More about relations see [Prisma relations](https://medium.com/yavar/prisma-relations-2ea20c42f616)
 
 ### Extra Information
 
 - [Prisma - Quickstart](https://www.prisma.io/docs/getting-started/quickstart)
 - [It's Prisma Time - Tuturial](https://dev.to/this-is-learning/its-prisma-time-introduction-3a3h)
-- [Prisma relations](https://medium.com/yavar/prisma-relations-2ea20c42f616)
