@@ -1,4 +1,3 @@
-import tRPC from '@/trpc';
 import React from 'react';
 
 const UserList = () => {
