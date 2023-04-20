@@ -2,14 +2,19 @@
 
 A quick start for tRPC.
 
+## The evolution of API's
+
+![](trpc.png)
+
+> Mark that it's not gRPC, but tRPC (gRPC is a protocol, tRPC is a framework)
+
+## Server setup
+
 ### Install dependencies
 
 ```bash
 # for server
 yarn add @trpc/server zod
-
-# for client
-yarn add @trpc/client @trpc/react-query @tanstack/react-query
 ```
 
 ### Create your first router
@@ -21,20 +26,7 @@ import { initTRPC } from '@trpc/server';
  
 const t = initTRPC.create();
   
-const appRouter = t.router({});
-```
-
-Add a procedure
-
-```ts
-export const appRouter = t.router({
-  getAll: t.procedure.query((req) => {
-    return [
-      { id: 1, name: 'John' },
-      { id: 2, name: 'Jane' },
-    ];
-  }),
-});
+export const appRouter = t.router({});
 ```
 
 Map to a express route
@@ -52,6 +44,20 @@ app.use(
 );
 ```
 
+Add a procedure
+
+```ts
+export const appRouter = t.router({
+  getAll: t.procedure.query((req) => {
+    return [
+      { id: 1, name: 'John' },
+      { id: 2, name: 'Jane' },
+    ];
+  }),
+});
+```
+
+
 ### Add UI Panel
 Easy for testing & documenting your tRPC API
 
@@ -64,7 +70,7 @@ import { renderTrpcPanel } from "trpc-panel";
 // ...
 app.use("/panel", (_, res) => {
   return res.send(
-    renderTrpcPanel(myTrpcRouter, { url: `http://localhost:3000/trpc` })
+    renderTrpcPanel(appRouter, { url: `http://localhost:3000/trpc` })
   );
 });
 ```
@@ -82,14 +88,23 @@ getById: t.procedure.input(schema).query(({ input }) => {
 }),
 ```
 
-### Use in the client
+## Client setup
+
+### Install dependencies
+
+```bash
+# for client
+yarn add @trpc/client @trpc/react-query @tanstack/react-query
+```
+
+### Setup
 
 Create the trpc client
 
 ```ts
 // ./client/src/trpc.ts
-import type { AppRouter } from '@euricom/trpc-server';
 import { createTRPCReact } from '@trpc/react-query';
+import type { AppRouter } from 'your-server-module';
 
 // Notice the <AppRouter> generic here.
 const tRPC = createTRPCReact<AppRouter>({});
@@ -97,18 +112,29 @@ const tRPC = createTRPCReact<AppRouter>({});
 export default tRPC;
 ```
 
-Make the router type available for the client
+Export your router type 
 
 ```ts
 // ./server/trpc.ts
+// export your router type
 export type AppRouter = typeof appRouter;
 ```
 
-```json
+Specifies the types in your package.json
+
+```js
+// ./server/package.json
 {
-  "name": "@euricom/trpc-server",
+  "name": "@euricom/my-trpc-server",
   "types": "trpc.ts",
 }
+```
+
+Import in the client
+
+```ts
+// ./client/src/trpc.ts
+import type { AppRouter } from '@euricom/my-trpc-server';
 ```
 
 Add the trpc & react-query client
@@ -198,6 +224,17 @@ const { data } = tRPC.getAll.useQuery();
 type X = typeof data[0].born   // Date | undefined !!!!!!
 ```
 
+Add it also to the TRPC panel
+
+```ts
+app.use('/panel', (_, res) => {
+  return res.send(renderTrpcPanel(appRouter, { 
+    url: `http://localhost:3000/trpc`,
+    transformer: 'superjson' 
+  }));
+});
+```
+
 ### Mutation
 
 Server
@@ -221,7 +258,22 @@ Client
 
 ```tsx
 const { data, mutate: createUser } = trpc.userCreate.useMutation();
-createUser({ name: 'John' });
+
+return (
+  <button onClick={() => createUser({ name: 'John' })}>Create user</button>
+)
+```
+
+Invalidate the user cache
+
+```tsx
+const trpcContext = trpc.useContext();
+
+const { data, mutate: createUser } = trpc.userCreate.useMutation({
+  onSuccess: () => {
+    trpcContext.getAll.invalidate();
+  },
+});
 ```
 
 ### Extra Information
